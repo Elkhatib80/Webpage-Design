@@ -69,6 +69,30 @@ export default function HeroSection() {
           {country.heroSubline}
         </p>
 
+        {/* Model range pills */}
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 animate-fade-in-up delay-100">
+          {[
+            { label: 'Q-08', sub: '512Wh', href: '/products/q-08-512wh' },
+            { label: 'Q-12', sub: '1024Wh', href: '/products/q-12-1024wh' },
+            { label: 'Q-24', sub: '2048Wh', href: '/products/q-24-2048wh' },
+            { label: 'Q-36', sub: '3840Wh', href: '/products/q-36-3840wh', highlight: true },
+          ].map((m) => (
+            <Link
+              key={m.label}
+              href={m.href}
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold border transition-all duration-200 cursor-pointer ${
+                m.highlight
+                  ? 'bg-yellow/10 border-yellow/50 text-yellow'
+                  : 'bg-white/5 border-white/10 text-gray-300 hover:border-yellow/30 hover:text-white'
+              }`}
+            >
+              {m.label}
+              <span className={`font-normal ${m.highlight ? 'text-yellow/70' : 'text-gray-500'}`}>· {m.sub}</span>
+              {m.highlight && <span className="text-yellow/60">★ Flagship</span>}
+            </Link>
+          ))}
+        </div>
+
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up delay-200">
           <Link

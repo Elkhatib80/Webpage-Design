@@ -2,15 +2,16 @@ import type { Metadata } from 'next';
 import HeroSection from '@/components/sections/HeroSection';
 import StatsSection from '@/components/sections/StatsSection';
 import FeaturedProducts from '@/components/sections/FeaturedProducts';
+import ComparisonTable from '@/components/sections/ComparisonTable';
 import WhySmrtQ from '@/components/sections/WhySmrtQ';
 import UseCasesSection from '@/components/sections/UseCasesSection';
 import TestimonialsSection from '@/components/sections/TestimonialsSection';
 import CTABanner from '@/components/sections/CTABanner';
 
 export const metadata: Metadata = {
-  title: 'smrtQ Solutions — Power Without Limits',
+  title: 'smrtQ Solutions — Smart Power. Anywhere.',
   description:
-    'Premium portable power stations and solar panels for Nigeria, UAE, and Saudi Arabia. End power outages, power your adventures, and keep your business running.',
+    'Premium LiFePO4 portable power stations for Nigeria, UAE, and Saudi Arabia. 512Wh to 3840Wh — pure sine wave, UPS mode, fast charging. End outages permanently.',
 };
 
 export default function HomePage() {
@@ -19,6 +20,7 @@ export default function HomePage() {
       <HeroSection />
       <StatsSection />
       <FeaturedProducts />
+      <ComparisonTable />
       <WhySmrtQ />
       <UseCasesSection />
       <TestimonialsSection />

@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Brand Colors */
-  --color-yellow: #F5C518;
-  --color-yellow-light: #FFD740;
-  --color-yellow-dark: #D4A900;
+  /* Brand Colors — official smrtQ #F5A623 */
+  --color-yellow: #F5A623;
+  --color-yellow-light: #FFB84D;
+  --color-yellow-dark: #D4891A;
   --color-black: #0A0A0A;
   --color-dark: #1A1A1A;
   --color-dark-2: #242424;
