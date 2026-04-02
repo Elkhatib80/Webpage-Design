@@ -17,6 +17,7 @@ export const products: Product[] = [
     isNew: false,
     isBestseller: false,
     inStock: true,
+    compareData: { chargeTime: '1.5 hrs', solarIn: '200W', ports: '8', cycles: '4,000+' },
     features: [
       '512Wh LiFePO4 battery — 4,000+ charge cycles',
       '800W AC pure sine wave output',
@@ -97,6 +98,7 @@ export const products: Product[] = [
     isNew: false,
     isBestseller: true,
     inStock: true,
+    compareData: { chargeTime: '1.2 hrs', solarIn: '200W', ports: '8', cycles: '3,500+' },
     features: [
       '1024Wh LiFePO4 battery — 3,500+ charge cycles',
       '1200W AC pure sine wave output',
@@ -170,10 +172,11 @@ export const products: Product[] = [
     capacity: '2048Wh',
     wattage: '2400W',
     price: { NG: 1150000, AE: 3800, SA: 3940 },
-    badge: 'Flagship',
+    badge: 'Pro Choice',
     isNew: true,
     isBestseller: false,
     inStock: true,
+    compareData: { chargeTime: '1.8 hrs', solarIn: '500W', ports: '13', cycles: '4,000+' },
     features: [
       '2048Wh LiFePO4 battery — 4,000+ charge cycles',
       '2400W pure sine wave output across 3 AC outlets',
@@ -240,9 +243,11 @@ export const products: Product[] = [
     wattage: '3600W',
     price: { NG: 2200000, AE: 7200, SA: 7460 },
     badge: 'Flagship',
+    isFlagship: true,
     isNew: true,
     isBestseller: false,
     inStock: true,
+    compareData: { chargeTime: '3 hrs', solarIn: '2000W', ports: '15', cycles: '4,000+' },
     features: [
       '3840Wh LiFePO4 battery — 4,000+ charge cycles',
       '3600W (220V) / 3300W (110V) pure sine wave output',
@@ -304,12 +309,4 @@ export const products: Product[] = [
 
 export function getProductBySlug(slug: string): Product | undefined {
   return products.find((p) => p.slug === slug);
-}
-
-export function getProductsByCategory(category: string): Product[] {
-  return products.filter((p) => p.category === category);
-}
-
-export function getFeaturedProducts(): Product[] {
-  return products;
 }

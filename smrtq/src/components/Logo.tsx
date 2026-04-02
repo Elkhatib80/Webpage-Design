@@ -10,36 +10,33 @@ interface LogoProps {
 }
 
 const heights = { sm: 36, md: 44, lg: 60 };
+type ImgState = 'loading' | 'loaded' | 'error';
 
 export default function Logo({ className = '', size = 'md' }: LogoProps) {
   const h = heights[size];
   const w = Math.round(h * (1100 / 333)); // preserves 1100×333 aspect ratio
-  const [imgLoaded, setImgLoaded] = useState(false);
-  const [imgError, setImgError] = useState(false);
+  const [imgState, setImgState] = useState<ImgState>('loading');
 
-  const showFallback = !imgLoaded || imgError;
+  const showFallback = imgState !== 'loaded';
 
   return (
-    <Link href="/" className={`flex items-center ${className}`} aria-label="smrtQ Solutions home">
-      {/* Real logo image — shown once file is uploaded to public/assets/logo/ */}
-      {!imgError && (
+    <Link href="/" className={`flex items-center gap-2 ${className}`} aria-label="smrtQ Solutions home">
+      {imgState !== 'error' && (
         <Image
           src="/assets/logo/smrtq_logo_web.png"
           alt="smrtQ Solutions"
           width={w}
           height={h}
           priority
-          className={`object-contain transition-opacity duration-300 ${imgLoaded ? 'opacity-100' : 'opacity-0 absolute'}`}
+          className={`object-contain transition-opacity duration-300 ${imgState === 'loaded' ? 'opacity-100' : 'opacity-0 absolute'}`}
           style={{ maxHeight: h }}
-          onLoad={() => setImgLoaded(true)}
-          onError={() => setImgError(true)}
+          onLoad={() => setImgState('loaded')}
+          onError={() => setImgState('error')}
         />
       )}
 
-      {/* SVG wordmark fallback — shown until real logo is present */}
       {showFallback && (
-        <div className="flex items-center gap-2">
-          {/* Lightbulb icon */}
+        <>
           <svg
             viewBox="0 0 80 90"
             fill="none"
@@ -56,15 +53,10 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
             <path d="M35 83 Q40 88 45 83" stroke="#F5A623" strokeWidth="3" strokeLinecap="round" fill="none" />
             <path d="M45 20L33 38H41L37 56L52 34H43L45 20Z" fill="#1A1A1A" />
           </svg>
-          {/* Wordmark */}
           <div className="flex flex-col leading-none">
             <span
               className="font-black text-white"
-              style={{
-                fontFamily: "'Barlow Condensed', sans-serif",
-                fontSize: h * 0.68,
-                letterSpacing: '-0.02em',
-              }}
+              style={{ fontFamily: "'Barlow Condensed', sans-serif", fontSize: h * 0.68, letterSpacing: '-0.02em' }}
             >
               smrt<span style={{ color: '#F5A623' }}>Q</span>
             </span>
@@ -75,7 +67,7 @@ export default function Logo({ className = '', size = 'md' }: LogoProps) {
               SOLUTIONS
             </span>
           </div>
-        </div>
+        </>
       )}
     </Link>
   );

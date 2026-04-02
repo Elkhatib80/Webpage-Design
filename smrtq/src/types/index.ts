@@ -32,6 +32,13 @@ export interface ProductReview {
 
 export type ProductCategory = 'power-station' | 'solar-panel' | 'accessory';
 
+export interface ProductCompareData {
+  chargeTime: string;
+  solarIn: string;
+  ports: string;
+  cycles: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -44,6 +51,8 @@ export interface Product {
   price: ProductPrice;
   originalPrice?: ProductPrice;
   badge?: string;
+  isFlagship?: boolean;
+  compareData?: ProductCompareData;
   features: string[];
   specs: ProductSpec[];
   reviews: ProductReview[];

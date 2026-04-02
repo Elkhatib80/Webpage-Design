@@ -2,13 +2,12 @@
 
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import { getFeaturedProducts } from '@/lib/products';
+import { products } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
-import { useReveal } from '@/lib/hooks/useReveal';
+import { useReveal, revealStyle, revealItemStyle } from '@/lib/hooks/useReveal';
 
 export default function FeaturedProducts() {
   const { ref, inView } = useReveal();
-  const products = getFeaturedProducts();
 
   return (
     <section className="py-24 bg-black" ref={ref}>
@@ -16,11 +15,7 @@ export default function FeaturedProducts() {
         {/* Header */}
         <div
           className="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 mb-14"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'opacity 0.7s ease, transform 0.7s ease',
-          }}
+          style={revealStyle(inView)}
         >
           <div>
             <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Our Products</p>
@@ -46,11 +41,7 @@ export default function FeaturedProducts() {
           {products.map((product, i) => (
             <div
               key={product.id}
-              style={{
-                opacity: inView ? 1 : 0,
-                transform: inView ? 'translateY(0)' : 'translateY(40px)',
-                transition: `opacity 0.7s ease ${i * 120}ms, transform 0.7s ease ${i * 120}ms`,
-              }}
+              style={revealItemStyle(inView, i)}
             >
               <ProductCard product={product} />
             </div>
