@@ -2,6 +2,9 @@
 
 import { Star, Quote } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const testimonials = [
   {
@@ -54,14 +57,14 @@ const testimonials = [
   },
 ];
 
-const container = {
+const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 35 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function TestimonialsSection() {
@@ -74,7 +77,7 @@ export default function TestimonialsSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Testimonials</p>
           <h2
@@ -104,7 +107,8 @@ export default function TestimonialsSection() {
               key={t.name}
               className="p-6 rounded-2xl border border-gray-200 bg-[#F7F6F2] hover:border-yellow/30 hover:shadow-md transition-all duration-300 flex flex-col"
               variants={fadeUp}
-              whileHover={{ y: -3, transition: { type: 'spring', stiffness: 260, damping: 24 } }}
+              transition={{ duration: 0.6, ease: EASE }}
+              whileHover={{ y: -3 }}
             >
               {/* Quote icon */}
               <Quote size={24} className="text-yellow/50 mb-4" />

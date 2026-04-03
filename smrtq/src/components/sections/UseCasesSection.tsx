@@ -2,6 +2,9 @@
 
 import { Home, Briefcase, Tent, Truck } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const useCases = [
   {
@@ -38,14 +41,14 @@ const useCases = [
   },
 ];
 
-const container = {
+const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 35 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function UseCasesSection() {
@@ -58,7 +61,7 @@ export default function UseCasesSection() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Use Cases</p>
           <h2
@@ -84,7 +87,8 @@ export default function UseCasesSection() {
                 key={uc.title}
                 className={`relative p-7 rounded-2xl border ${uc.border} bg-gradient-to-br ${uc.gradient} overflow-hidden group cursor-default hover:shadow-md transition-shadow duration-300`}
                 variants={fadeUp}
-                whileHover={{ y: -5, transition: { type: 'spring', stiffness: 260, damping: 20 } }}
+                transition={{ duration: 0.6, ease: EASE }}
+                whileHover={{ y: -5 }}
               >
                 <div className={`w-12 h-12 rounded-xl ${uc.iconBg} flex items-center justify-center mb-5`}>
                   <Icon size={22} />

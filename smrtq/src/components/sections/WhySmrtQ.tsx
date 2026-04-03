@@ -2,6 +2,9 @@
 
 import { Shield, Zap, Wifi, Sun, Battery, ThumbsUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
+
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const features = [
   {
@@ -42,14 +45,14 @@ const features = [
   },
 ];
 
-const container = {
+const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 35 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function WhySmrtQ() {
@@ -62,7 +65,7 @@ export default function WhySmrtQ() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Why Choose Us</p>
           <h2
@@ -91,8 +94,8 @@ export default function WhySmrtQ() {
                 key={feature.title}
                 className="group p-7 rounded-2xl border border-gray-200 bg-white hover:border-yellow/40 hover:shadow-lg transition-all duration-300 cursor-default"
                 variants={fadeUp}
+                transition={{ duration: 0.6, ease: EASE }}
                 whileHover={{ y: -4 }}
-                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
               >
                 <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-5 ${feature.accent}`}>
                   <Icon size={22} />

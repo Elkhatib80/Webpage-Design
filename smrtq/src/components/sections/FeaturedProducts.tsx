@@ -3,17 +3,20 @@
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { products } from '@/lib/products';
 import ProductCard from '@/components/ProductCard';
 
-const container = {
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+
+const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0 },
 };
 
 export default function FeaturedProducts() {
@@ -26,7 +29,7 @@ export default function FeaturedProducts() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: EASE }}
         >
           <div>
             <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Our Products</p>
@@ -56,7 +59,11 @@ export default function FeaturedProducts() {
           viewport={{ once: true, margin: '-60px' }}
         >
           {products.map((product) => (
-            <motion.div key={product.id} variants={fadeUp}>
+            <motion.div
+              key={product.id}
+              variants={fadeUp}
+              transition={{ duration: 0.65, ease: EASE }}
+            >
               <ProductCard product={product} />
             </motion.div>
           ))}

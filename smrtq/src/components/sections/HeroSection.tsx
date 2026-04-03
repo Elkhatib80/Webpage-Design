@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { useCountry } from '@/lib/contexts/CountryContext';
 import { countries } from '@/lib/countries';
 import { products } from '@/lib/products';
@@ -22,27 +23,26 @@ const modelPills = products
     highlight: !!p.isFlagship,
   }));
 
-// Animation variants
-const spring = { type: 'spring', stiffness: 260, damping: 28 };
+const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const container = {
+const container: Variants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
 };
 
-const fadeUp = {
+const fadeUp: Variants = {
   hidden:  { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+  visible: { opacity: 1, y: 0 },
 };
 
-const fadeIn = {
+const fadeIn: Variants = {
   hidden:  { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } },
+  visible: { opacity: 1 },
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden:  { opacity: 0, scale: 0.88 },
-  visible: { opacity: 1, scale: 1, transition: spring },
+  visible: { opacity: 1, scale: 1 },
 };
 
 export default function HeroSection() {
@@ -78,7 +78,7 @@ export default function HeroSection() {
         animate="visible"
       >
         {/* Country badge */}
-        <motion.div variants={fadeIn}>
+        <motion.div variants={fadeIn} transition={{ duration: 0.6 }}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8">
             <span className="text-base">{country.flag}</span>
             <span>Now available in {country.name}</span>
@@ -91,6 +91,7 @@ export default function HeroSection() {
           className="font-black leading-none mb-6"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           variants={fadeUp}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           <span className="block text-white" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
             POWER WITHOUT
@@ -103,12 +104,17 @@ export default function HeroSection() {
         <motion.p
           className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed"
           variants={fadeUp}
+          transition={{ duration: 0.7, ease: EASE }}
         >
           {country.heroSubline}
         </motion.p>
 
         {/* Model pills */}
-        <motion.div className="flex flex-wrap items-center justify-center gap-2 mb-8" variants={fadeUp}>
+        <motion.div
+          className="flex flex-wrap items-center justify-center gap-2 mb-8"
+          variants={fadeUp}
+          transition={{ duration: 0.7, ease: EASE }}
+        >
           {modelPills.map((m) => (
             <Link
               key={m.label}
@@ -131,7 +137,10 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
           variants={container}
         >
-          <motion.div variants={scaleIn}>
+          <motion.div
+            variants={scaleIn}
+            transition={{ type: 'spring' as const, stiffness: 260, damping: 28 }}
+          >
             <Link
               href="/products"
               className="btn-primary flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
@@ -141,7 +150,10 @@ export default function HeroSection() {
               <ArrowRight size={18} />
             </Link>
           </motion.div>
-          <motion.div variants={scaleIn}>
+          <motion.div
+            variants={scaleIn}
+            transition={{ type: 'spring' as const, stiffness: 260, damping: 28 }}
+          >
             <Link
               href="/about"
               className="btn-outline-white flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
@@ -157,7 +169,12 @@ export default function HeroSection() {
           variants={container}
         >
           {trustBadges.map(({ icon: Icon, label }) => (
-            <motion.div key={label} className="flex items-center gap-2 text-sm text-gray-400" variants={fadeIn}>
+            <motion.div
+              key={label}
+              className="flex items-center gap-2 text-sm text-gray-400"
+              variants={fadeIn}
+              transition={{ duration: 0.5 }}
+            >
               <Icon size={16} className="text-yellow" />
               {label}
             </motion.div>

@@ -46,7 +46,7 @@ export default function ComparisonTable() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Full Lineup</p>
           <h2
@@ -65,7 +65,7 @@ export default function ComparisonTable() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
-          transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
         >
           <table className="w-full min-w-[640px] text-sm">
             <thead>

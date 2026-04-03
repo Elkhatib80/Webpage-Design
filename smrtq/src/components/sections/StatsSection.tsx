@@ -45,7 +45,7 @@ function StatCard({ value, suffix, label, prefix, delay, inView }: {
       className="text-center"
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.65, delay: delay / 1000, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.65, delay: delay / 1000, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
     >
       <div
         className="text-5xl sm:text-6xl font-black gradient-text mb-2"

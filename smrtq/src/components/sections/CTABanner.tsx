@@ -31,7 +31,7 @@ export default function CTABanner() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
-        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
       >
         <h2
           className="text-5xl sm:text-6xl lg:text-7xl font-black text-black leading-none mb-6"
