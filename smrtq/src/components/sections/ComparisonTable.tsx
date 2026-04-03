@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import { useMemo } from 'react';
-import { useReveal, revealStyle } from '@/lib/hooks/useReveal';
+import { motion } from 'framer-motion';
 import { useCountry } from '@/lib/contexts/CountryContext';
 import { formatPrice } from '@/lib/countries';
 import { products } from '@/lib/products';
@@ -23,11 +23,8 @@ const rows: Array<{ label: string; key: RowKey }> = [
 const SHARED_FEATURES = ['LFP Battery', 'Pure Sine', 'UPS', 'BMS', 'LED Light'] as const;
 
 export default function ComparisonTable() {
-  const { ref, inView } = useReveal();
   const { countryCode } = useCountry();
 
-  // Static cell values (capacity, wattage, compareData fields) never change —
-  // only price cells need recalculation when countryCode changes.
   const staticCells = useMemo(
     () =>
       products.map((p) => ({
@@ -38,30 +35,42 @@ export default function ComparisonTable() {
         ports:      p.compareData?.ports      ?? '—',
         cycles:     p.compareData?.cycles     ?? '—',
       })),
-    [] // products is module-level constant
+    []
   );
 
   return (
-    <section className="py-24 bg-black" ref={ref as React.RefObject<HTMLElement>}>
+    <section className="py-24 bg-[#F7F6F2]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="text-center mb-14" style={revealStyle(inView)}>
+        <motion.div
+          className="text-center mb-14"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Full Lineup</p>
           <h2
-            className="text-4xl sm:text-5xl font-black text-white"
+            className="text-4xl sm:text-5xl font-black text-gray-900"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             COMPARE ALL MODELS
           </h2>
-          <p className="text-gray-400 mt-3 max-w-lg mx-auto">
+          <p className="text-gray-500 mt-3 max-w-lg mx-auto">
             All units: LiFePO₄ · Pure Sine Wave · UPS &lt;10ms · BMS · Fireproof Shell
           </p>
-        </div>
+        </motion.div>
 
-        <div className="overflow-x-auto rounded-2xl border border-white/10" style={revealStyle(inView, 200)}>
+        <motion.div
+          className="overflow-x-auto rounded-2xl border border-gray-200 shadow-sm bg-white"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ delay: 0.15, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
           <table className="w-full min-w-[640px] text-sm">
             <thead>
-              <tr className="bg-dark-2">
-                <th className="text-left px-5 py-4 text-gray-500 font-semibold w-36">Model</th>
+              <tr className="bg-gray-50 border-b border-gray-200">
+                <th className="text-left px-5 py-4 text-gray-400 font-semibold w-36">Model</th>
                 {products.map((p) => (
                   <th key={p.id} className="px-4 py-4 text-center">
                     <div className="flex flex-col items-center gap-1">
@@ -71,7 +80,7 @@ export default function ComparisonTable() {
                         </span>
                       )}
                       <span
-                        className={`font-black text-base ${p.isFlagship ? 'text-yellow' : 'text-white'}`}
+                        className={`font-black text-base ${p.isFlagship ? 'text-yellow' : 'text-gray-900'}`}
                         style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                       >
                         {p.name}
@@ -83,8 +92,8 @@ export default function ComparisonTable() {
             </thead>
             <tbody>
               {rows.map((row, ri) => (
-                <tr key={row.label} className={ri % 2 === 0 ? 'bg-surface' : 'bg-dark-2'}>
-                  <td className="px-5 py-3.5 text-gray-400 font-medium whitespace-nowrap">{row.label}</td>
+                <tr key={row.label} className={`border-b border-gray-100 ${ri % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                  <td className="px-5 py-3.5 text-gray-500 font-medium whitespace-nowrap">{row.label}</td>
                   {products.map((p, pi) => {
                     const value =
                       row.key === 'price'
@@ -94,7 +103,7 @@ export default function ComparisonTable() {
                       <td
                         key={p.id}
                         className={`px-4 py-3.5 text-center font-semibold ${
-                          p.isFlagship ? 'text-yellow' : row.key === 'price' ? 'text-white' : 'text-gray-200'
+                          p.isFlagship ? 'text-yellow' : row.key === 'price' ? 'text-gray-900' : 'text-gray-700'
                         }`}
                       >
                         {value}
@@ -103,11 +112,11 @@ export default function ComparisonTable() {
                   })}
                 </tr>
               ))}
-              <tr className="bg-surface">
-                <td className="px-5 py-3.5 text-gray-400 font-medium">Included</td>
+              <tr className="border-b border-gray-100 bg-white">
+                <td className="px-5 py-3.5 text-gray-500 font-medium">Included</td>
                 {products.map((p) => (
                   <td key={p.id} className="px-4 py-3.5">
-                    <div className="flex flex-col items-center gap-1 text-xs text-gray-400">
+                    <div className="flex flex-col items-center gap-1 text-xs text-gray-500">
                       {SHARED_FEATURES.map((f) => (
                         <div key={f} className="flex items-center gap-1">
                           <CheckCircle size={11} className="text-yellow" />
@@ -118,7 +127,7 @@ export default function ComparisonTable() {
                   </td>
                 ))}
               </tr>
-              <tr className="bg-dark-3">
+              <tr className="bg-gray-50">
                 <td className="px-5 py-4" />
                 {products.map((p) => (
                   <td key={p.id} className="px-4 py-4 text-center">
@@ -127,7 +136,7 @@ export default function ComparisonTable() {
                       className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-200 ${
                         p.isFlagship
                           ? 'btn-primary'
-                          : 'border border-white/20 text-gray-300 hover:border-yellow/50 hover:text-yellow'
+                          : 'border border-gray-300 text-gray-600 hover:border-yellow/60 hover:text-yellow'
                       }`}
                     >
                       View <ArrowRight size={12} />
@@ -137,7 +146,7 @@ export default function ComparisonTable() {
               </tr>
             </tbody>
           </table>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

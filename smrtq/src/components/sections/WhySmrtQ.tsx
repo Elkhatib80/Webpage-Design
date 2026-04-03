@@ -1,96 +1,113 @@
 'use client';
 
 import { Shield, Zap, Wifi, Sun, Battery, ThumbsUp } from 'lucide-react';
-import { useReveal } from '@/lib/hooks/useReveal';
+import { motion } from 'framer-motion';
 
 const features = [
   {
     icon: Battery,
     title: 'LFP Battery Technology',
     description: 'LiFePO4 chemistry offers 3,500+ cycles, superior thermal stability, and no thermal runaway risk. Built to last a decade.',
+    accent: 'bg-yellow/10 border-yellow/25 text-yellow',
   },
   {
     icon: Zap,
     title: 'Ultra-Fast Charging',
     description: 'Go from 0 to 80% in under one hour with our dual-input fast charging — wall and solar simultaneously.',
+    accent: 'bg-orange-50 border-orange-200 text-orange-500',
   },
   {
     icon: Shield,
     title: 'BMS Protection',
     description: '12-layer Battery Management System protects against overcharge, over-discharge, short circuit, and extreme temperatures.',
+    accent: 'bg-blue-50 border-blue-200 text-blue-500',
   },
   {
     icon: Sun,
     title: 'Solar Ready',
     description: 'Every smrtQ station works with our solar panels out of the box. True off-grid independence in sunny climates.',
+    accent: 'bg-green-50 border-green-200 text-green-500',
   },
   {
     icon: Wifi,
     title: 'Smart App Control',
     description: 'Monitor battery level, input/output wattage, charge schedules, and get alerts — all from your smartphone.',
+    accent: 'bg-purple-50 border-purple-200 text-purple-500',
   },
   {
     icon: ThumbsUp,
     title: '5-Year Warranty',
     description: "We stand behind every unit. Industry-leading warranty with in-country service centers across Nigeria, UAE, and KSA.",
+    accent: 'bg-yellow/10 border-yellow/25 text-yellow',
   },
 ];
 
-export default function WhySmrtQ() {
-  const { ref, inView } = useReveal();
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+};
 
+const fadeUp = {
+  hidden:  { opacity: 0, y: 35 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+export default function WhySmrtQ() {
   return (
-    <section className="py-24 bg-surface" ref={ref as React.RefObject<HTMLElement>}>
+    <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div
+        <motion.div
           className="text-center mb-16"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'opacity 0.7s ease, transform 0.7s ease',
-          }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Why Choose Us</p>
           <h2
-            className="text-4xl sm:text-5xl font-black text-white mb-4"
+            className="text-4xl sm:text-5xl font-black text-gray-900 mb-4"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             ENGINEERED FOR EXCELLENCE
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto text-lg">
+          <p className="text-gray-500 max-w-xl mx-auto text-lg">
             Every detail designed for the demanding conditions of Africa and the Middle East.
           </p>
-        </div>
+        </motion.div>
 
         {/* Feature grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, i) => {
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <div
+              <motion.div
                 key={feature.title}
-                className="group p-7 rounded-2xl border border-white/5 bg-dark-2 hover:border-yellow/20 hover:bg-dark-3 transition-all duration-300 cursor-default"
-                style={{
-                  opacity: inView ? 1 : 0,
-                  transform: inView ? 'translateY(0)' : 'translateY(40px)',
-                  transition: `opacity 0.7s ease ${i * 80}ms, transform 0.7s ease ${i * 80}ms`,
-                }}
+                className="group p-7 rounded-2xl border border-gray-200 bg-white hover:border-yellow/40 hover:shadow-lg transition-all duration-300 cursor-default"
+                variants={fadeUp}
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 260, damping: 24 }}
               >
-                <div className="w-12 h-12 rounded-xl bg-yellow/10 border border-yellow/20 flex items-center justify-center mb-5 group-hover:bg-yellow/20 transition-colors">
-                  <Icon size={22} className="text-yellow" />
+                <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-5 ${feature.accent}`}>
+                  <Icon size={22} />
                 </div>
                 <h3
-                  className="text-lg font-bold text-white mb-2"
+                  className="text-lg font-bold text-gray-900 mb-2"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
                   {feature.title}
                 </h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{feature.description}</p>
-              </div>
+                <p className="text-sm text-gray-500 leading-relaxed">{feature.description}</p>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

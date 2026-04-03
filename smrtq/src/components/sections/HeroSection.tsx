@@ -2,26 +2,48 @@
 
 import Link from 'next/link';
 import { ArrowRight, Zap, Shield, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { useCountry } from '@/lib/contexts/CountryContext';
 import { countries } from '@/lib/countries';
 import { products } from '@/lib/products';
 
-// Hoisted — no dependency on props/state so no need to recreate on render
 const trustBadges = [
   { icon: Shield, label: '5-Year Warranty' },
   { icon: Star,   label: '4.9 / 5 Rating'  },
   { icon: Zap,    label: 'LFP Battery Tech' },
 ] as const;
 
-// Derived from the products array — stays in sync automatically
 const modelPills = products
   .filter((p) => p.category === 'power-station')
   .map((p) => ({
-    label:     p.name.replace('smrtQ ', ''),   // "smrtQ Q-08" → "Q-08"
+    label:     p.name.replace('smrtQ ', ''),
     sub:       p.capacity ?? '',
     href:      `/products/${p.slug}`,
     highlight: !!p.isFlagship,
   }));
+
+// Animation variants
+const spring = { type: 'spring', stiffness: 260, damping: 28 };
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.1 } },
+};
+
+const fadeUp = {
+  hidden:  { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const fadeIn = {
+  hidden:  { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.6, ease: 'easeOut' } },
+};
+
+const scaleIn = {
+  hidden:  { opacity: 0, scale: 0.88 },
+  visible: { opacity: 1, scale: 1, transition: spring },
+};
 
 export default function HeroSection() {
   const { countryCode } = useCountry();
@@ -35,7 +57,7 @@ export default function HeroSection() {
       {/* Background */}
       <div className="absolute inset-0 bg-black">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-20"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-20"
           style={{ background: 'radial-gradient(circle, #F5A623 0%, transparent 70%)' }}
         />
         <div
@@ -49,17 +71,26 @@ export default function HeroSection() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 text-center">
+      <motion.div
+        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 text-center"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
         {/* Country badge */}
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8 animate-fade-in">
-          <span className="text-base">{country.flag}</span>
-          <span>Now available in {country.name}</span>
-          <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-        </div>
+        <motion.div variants={fadeIn}>
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8">
+            <span className="text-base">{country.flag}</span>
+            <span>Now available in {country.name}</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+          </div>
+        </motion.div>
 
-        <h1
-          className="font-black leading-none mb-6 animate-fade-in-up"
+        {/* Headline */}
+        <motion.h1
+          className="font-black leading-none mb-6"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          variants={fadeUp}
         >
           <span className="block text-white" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
             POWER WITHOUT
@@ -67,14 +98,17 @@ export default function HeroSection() {
           <span className="block gradient-text yellow-glow-text" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
             LIMITS
           </span>
-        </h1>
+        </motion.h1>
 
-        <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up delay-100">
+        <motion.p
+          className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed"
+          variants={fadeUp}
+        >
           {country.heroSubline}
-        </p>
+        </motion.p>
 
-        {/* Model range pills — derived from products data */}
-        <div className="flex flex-wrap items-center justify-center gap-2 mb-8 animate-fade-in-up delay-100">
+        {/* Model pills */}
+        <motion.div className="flex flex-wrap items-center justify-center gap-2 mb-8" variants={fadeUp}>
           {modelPills.map((m) => (
             <Link
               key={m.label}
@@ -90,43 +124,59 @@ export default function HeroSection() {
               {m.highlight && <span className="text-yellow/60">★ Flagship</span>}
             </Link>
           ))}
-        </div>
+        </motion.div>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16 animate-fade-in-up delay-200">
-          <Link
-            href="/products"
-            className="btn-primary flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
-          >
-            <Zap size={18} />
-            Shop Power Stations
-            <ArrowRight size={18} />
-          </Link>
-          <Link
-            href="/about"
-            className="btn-outline flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
-          >
-            Learn More
-          </Link>
-        </div>
+        <motion.div
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16"
+          variants={container}
+        >
+          <motion.div variants={scaleIn}>
+            <Link
+              href="/products"
+              className="btn-primary flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
+            >
+              <Zap size={18} />
+              Shop Power Stations
+              <ArrowRight size={18} />
+            </Link>
+          </motion.div>
+          <motion.div variants={scaleIn}>
+            <Link
+              href="/about"
+              className="btn-outline-white flex items-center gap-2 px-8 py-4 rounded-xl text-base font-bold w-full sm:w-auto justify-center"
+            >
+              Learn More
+            </Link>
+          </motion.div>
+        </motion.div>
 
-        <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 animate-fade-in delay-300">
+        {/* Trust badges */}
+        <motion.div
+          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10"
+          variants={container}
+        >
           {trustBadges.map(({ icon: Icon, label }) => (
-            <div key={label} className="flex items-center gap-2 text-sm text-gray-400">
+            <motion.div key={label} className="flex items-center gap-2 text-sm text-gray-400" variants={fadeIn}>
               <Icon size={16} className="text-yellow" />
               {label}
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-fade-in delay-500">
+      <motion.div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 1.2, duration: 0.6 }}
+      >
         <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
         <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center pt-1.5">
           <div className="w-1 h-2 rounded-full bg-yellow" style={{ animation: 'scrollDot 1.8s ease-in-out infinite' }} />
         </div>
-      </div>
+      </motion.div>
 
       <style>{`
         @keyframes scrollDot {

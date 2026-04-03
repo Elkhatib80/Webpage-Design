@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { CountryProvider } from '@/lib/contexts/CountryContext';
 import { CartProvider } from '@/lib/contexts/CartContext';
+import AnnouncementBar from '@/components/AnnouncementBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <CountryProvider>
           <CartProvider>
+            <AnnouncementBar />
             <Header />
             <main>{children}</main>
             <Footer />

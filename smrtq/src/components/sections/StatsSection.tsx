@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 const stats = [
   { value: 10000, suffix: '+', label: 'Customers Powered', prefix: '' },
@@ -40,14 +41,11 @@ function StatCard({ value, suffix, label, prefix, delay, inView }: {
   const isDecimal = value % 1 !== 0;
 
   return (
-    <div
-      className="text-center reveal"
-      style={{
-        animationDelay: `${delay}ms`,
-        opacity: inView ? 1 : 0,
-        transform: inView ? 'translateY(0)' : 'translateY(30px)',
-        transition: `opacity 0.7s ease ${delay}ms, transform 0.7s ease ${delay}ms`,
-      }}
+    <motion.div
+      className="text-center"
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.65, delay: delay / 1000, ease: [0.22, 1, 0.36, 1] }}
     >
       <div
         className="text-5xl sm:text-6xl font-black gradient-text mb-2"
@@ -55,8 +53,8 @@ function StatCard({ value, suffix, label, prefix, delay, inView }: {
       >
         {prefix}{isDecimal ? count.toFixed(1) : count.toLocaleString()}{suffix}
       </div>
-      <div className="text-sm text-gray-400 font-medium tracking-wide">{label}</div>
-    </div>
+      <div className="text-sm text-gray-500 font-medium tracking-wide">{label}</div>
+    </motion.div>
   );
 }
 
@@ -79,15 +77,9 @@ export default function StatsSection() {
   }, []);
 
   return (
-    <section className="relative py-20 overflow-hidden" ref={ref}>
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-surface to-black" />
-      <div
-        className="absolute inset-0 opacity-5"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 50% 50%, #F5C518 0%, transparent 60%)',
-        }}
-      />
+    <section className="relative py-20 bg-white overflow-hidden" ref={ref}>
+      {/* Subtle yellow accent line at top */}
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow to-transparent opacity-60" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16">

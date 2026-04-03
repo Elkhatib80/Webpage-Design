@@ -1,7 +1,7 @@
 'use client';
 
 import { Star, Quote } from 'lucide-react';
-import { useReveal } from '@/lib/hooks/useReveal';
+import { motion } from 'framer-motion';
 
 const testimonials = [
   {
@@ -54,24 +54,31 @@ const testimonials = [
   },
 ];
 
-export default function TestimonialsSection() {
-  const { ref, inView } = useReveal();
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.05 } },
+};
 
+const fadeUp = {
+  hidden:  { opacity: 0, y: 35 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
+};
+
+export default function TestimonialsSection() {
   return (
-    <section className="py-24 bg-surface overflow-hidden" ref={ref as React.RefObject<HTMLElement>}>
+    <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Header */}
-        <div
+        <motion.div
           className="text-center mb-16"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? 'translateY(0)' : 'translateY(30px)',
-            transition: 'opacity 0.7s ease, transform 0.7s ease',
-          }}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-yellow text-sm font-semibold tracking-widest uppercase mb-3">Testimonials</p>
           <h2
-            className="text-4xl sm:text-5xl font-black text-white mb-4"
+            className="text-4xl sm:text-5xl font-black text-gray-900 mb-4"
             style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
           >
             REAL PEOPLE. REAL POWER.
@@ -82,35 +89,38 @@ export default function TestimonialsSection() {
             ))}
           </div>
           <p className="text-gray-400 text-sm">Rated 4.9 / 5 across 3 countries</p>
-        </div>
+        </motion.div>
 
         {/* Testimonials grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {testimonials.map((t, i) => (
-            <div
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"
+          variants={container}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+        >
+          {testimonials.map((t) => (
+            <motion.div
               key={t.name}
-              className="p-6 rounded-2xl border border-white/5 bg-dark-2 hover:border-white/10 transition-all duration-300 flex flex-col"
-              style={{
-                opacity: inView ? 1 : 0,
-                transform: inView ? 'translateY(0)' : 'translateY(40px)',
-                transition: `opacity 0.7s ease ${i * 80}ms, transform 0.7s ease ${i * 80}ms`,
-              }}
+              className="p-6 rounded-2xl border border-gray-200 bg-[#F7F6F2] hover:border-yellow/30 hover:shadow-md transition-all duration-300 flex flex-col"
+              variants={fadeUp}
+              whileHover={{ y: -3, transition: { type: 'spring', stiffness: 260, damping: 24 } }}
             >
               {/* Quote icon */}
-              <Quote size={24} className="text-yellow/40 mb-4" />
+              <Quote size={24} className="text-yellow/50 mb-4" />
 
               {/* Text */}
-              <p className="text-sm text-gray-300 leading-relaxed flex-1 mb-5">&ldquo;{t.text}&rdquo;</p>
+              <p className="text-sm text-gray-600 leading-relaxed flex-1 mb-5">&ldquo;{t.text}&rdquo;</p>
 
               {/* Footer */}
-              <div className="flex items-center justify-between border-t border-white/5 pt-4">
+              <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-full bg-yellow/10 border border-yellow/20 flex items-center justify-center text-lg">
                     {t.flag}
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">{t.name}</p>
-                    <p className="text-xs text-gray-500">{t.role} · {t.location}</p>
+                    <p className="text-sm font-semibold text-gray-900">{t.name}</p>
+                    <p className="text-xs text-gray-400">{t.role} · {t.location}</p>
                   </div>
                 </div>
                 <div className="flex gap-0.5">
@@ -119,9 +129,9 @@ export default function TestimonialsSection() {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

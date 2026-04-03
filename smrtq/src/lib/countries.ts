@@ -36,7 +36,7 @@ export const countries: Record<CountryCode, Country> = {
   },
 };
 
-export const countryList: Country[] = Object.values(countries);
+export const countryList: Country[] = [countries.NG, countries.SA, countries.AE];
 
 export const DEFAULT_COUNTRY: CountryCode = 'NG';
 
