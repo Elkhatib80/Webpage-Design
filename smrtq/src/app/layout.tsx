@@ -9,6 +9,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
 import ScrollProgress from '@/components/ScrollProgress';
+import PageTransitionWrapper from '@/components/PageTransitionWrapper';
 import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
@@ -76,7 +77,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <ScrollProgress />
             <AnnouncementBar />
             <Header />
-            <main>{children}</main>
+            <main><PageTransitionWrapper>{children}</PageTransitionWrapper></main>
             <Footer />
             <FloatingCTA />
           </CartProvider>

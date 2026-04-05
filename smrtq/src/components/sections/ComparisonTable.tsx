@@ -92,7 +92,10 @@ export default function ComparisonTable() {
             </thead>
             <tbody>
               {rows.map((row, ri) => (
-                <tr key={row.label} className={`border-b border-gray-100 ${ri % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}>
+                <tr
+                  key={row.label}
+                  className={`border-b border-gray-100 transition-colors duration-150 hover:bg-yellow/5 ${ri % 2 === 0 ? 'bg-white' : 'bg-gray-50/50'}`}
+                >
                   <td className="px-5 py-3.5 text-gray-500 font-medium whitespace-nowrap">{row.label}</td>
                   {products.map((p, pi) => {
                     const value =
