@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { CountryProvider } from '@/lib/contexts/CountryContext';
 import { CartProvider } from '@/lib/contexts/CartContext';
 import AnnouncementBar from '@/components/AnnouncementBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import FloatingCTA from '@/components/FloatingCTA';
+import ScrollProgress from '@/components/ScrollProgress';
+import { JsonLd } from '@/components/JsonLd';
 
 export const metadata: Metadata = {
   title: {
@@ -19,8 +24,42 @@ export const metadata: Metadata = {
     description: 'Premium portable power stations for Nigeria, UAE, and Saudi Arabia.',
     type: 'website',
     siteName: 'smrtQ Solutions',
+    url: 'https://smrtq.com/',
   },
   robots: { index: true, follow: true },
+  alternates: { canonical: 'https://smrtq.com/' },
+};
+
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'smrtQ Solutions',
+  url: 'https://smrtq.com',
+  logo: 'https://smrtq.com/logo.png',
+  sameAs: [],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+234-800-000-0000',
+      contactType: 'customer service',
+      areaServed: 'NG',
+      availableLanguage: 'English',
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: '+966-11-000-0000',
+      contactType: 'customer service',
+      areaServed: 'SA',
+      availableLanguage: ['English', 'Arabic'],
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: '+971-4-000-0000',
+      contactType: 'customer service',
+      areaServed: 'AE',
+      availableLanguage: ['English', 'Arabic'],
+    },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -29,16 +68,21 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <JsonLd data={organizationSchema} />
       </head>
       <body>
         <CountryProvider>
           <CartProvider>
+            <ScrollProgress />
             <AnnouncementBar />
             <Header />
             <main>{children}</main>
             <Footer />
+            <FloatingCTA />
           </CartProvider>
         </CountryProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

@@ -45,6 +45,16 @@ const scaleIn: Variants = {
   visible: { opacity: 1, scale: 1 },
 };
 
+// Floating particles config
+const particles = Array.from({ length: 14 }, (_, i) => ({
+  id: i,
+  x: 8 + (i * 6.5) % 88,
+  y: 10 + (i * 11) % 75,
+  size: 1.5 + (i % 3) * 1.2,
+  duration: 3 + (i % 4) * 1.5,
+  delay: (i % 5) * 0.7,
+}));
+
 export default function HeroSection() {
   const { countryCode } = useCountry();
   const country = countries[countryCode];
@@ -54,12 +64,16 @@ export default function HeroSection() {
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-16"
       aria-label="Hero"
     >
-      {/* Background */}
+      {/* ── Background ─────────────────────────────── */}
       <div className="absolute inset-0 bg-black">
+
+        {/* Radial amber glow */}
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] rounded-full opacity-20"
           style={{ background: 'radial-gradient(circle, #F5A623 0%, transparent 70%)' }}
         />
+
+        {/* Grid */}
         <div
           className="absolute inset-0 opacity-5"
           style={{
@@ -68,9 +82,60 @@ export default function HeroSection() {
             backgroundSize: '60px 60px',
           }}
         />
+
+        {/* Animated power waveform — 3 overlapping SVG waves */}
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          preserveAspectRatio="none"
+          viewBox="0 0 1440 800"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          {[
+            { opacity: 0.07, speed: 8,  yOffset: 400, amplitude: 60 },
+            { opacity: 0.05, speed: 12, yOffset: 420, amplitude: 40 },
+            { opacity: 0.04, speed: 16, yOffset: 380, amplitude: 80 },
+          ].map((wave, wi) => (
+            <motion.path
+              key={wi}
+              d={`M0 ${wave.yOffset} C 180 ${wave.yOffset - wave.amplitude}, 360 ${wave.yOffset + wave.amplitude}, 540 ${wave.yOffset} S 900 ${wave.yOffset - wave.amplitude}, 1080 ${wave.yOffset} S 1440 ${wave.yOffset + wave.amplitude}, 1440 ${wave.yOffset}`}
+              fill="none"
+              stroke="#F5A623"
+              strokeWidth="2"
+              opacity={wave.opacity}
+              animate={{ x: [-540, 0] }}
+              transition={{
+                duration: wave.speed,
+                repeat: Infinity,
+                ease: 'linear',
+              }}
+            />
+          ))}
+        </svg>
+
+        {/* Floating particles */}
+        {particles.map((p) => (
+          <motion.div
+            key={p.id}
+            className="absolute rounded-full bg-yellow"
+            style={{
+              left: `${p.x}%`,
+              top:  `${p.y}%`,
+              width:  p.size,
+              height: p.size,
+              opacity: 0.3,
+            }}
+            animate={{ y: [0, -18, 0], opacity: [0.2, 0.5, 0.2] }}
+            transition={{
+              duration: p.duration,
+              delay: p.delay,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
       </div>
 
-      {/* Content */}
+      {/* ── Content ────────────────────────────────── */}
       <motion.div
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-20 text-center"
         variants={container}
@@ -187,7 +252,7 @@ export default function HeroSection() {
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
+        transition={{ delay: 1.4, duration: 0.6 }}
       >
         <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
         <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center pt-1.5">

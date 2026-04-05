@@ -1,15 +1,22 @@
 'use client';
 
 import Link from 'next/link';
-import { ShoppingCart, Star, Zap, Battery } from 'lucide-react';
+import { ShoppingCart, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Product } from '@/types';
 import { useCountry } from '@/lib/contexts/CountryContext';
 import { useCart } from '@/lib/contexts/CartContext';
 import { formatPrice } from '@/lib/countries';
+import ProductIllustration, { type ProductId } from '@/components/ProductIllustration';
 
 interface ProductCardProps {
   product: Product;
+}
+
+function toProductId(slug: string): ProductId {
+  const parts = slug.split('-');
+  const id = `${parts[0]}-${parts[1]}` as ProductId;
+  return ['q-08', 'q-12', 'q-24', 'q-36'].includes(id) ? id : 'q-08';
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
@@ -40,45 +47,11 @@ export default function ProductCard({ product }: ProductCardProps) {
         )}
       </div>
 
-      {/* Product image area */}
+      {/* Product image */}
       <Link href={`/products/${product.slug}`} className="block">
-        <div className="relative h-52 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden">
-          {/* Subtle grid pattern */}
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{
-              backgroundImage: 'linear-gradient(rgba(245,166,35,0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.2) 1px, transparent 1px)',
-              backgroundSize: '30px 30px',
-            }}
-          />
-          {/* Product silhouette */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="text-center">
-              {product.category === 'power-station' ? (
-                <div className="relative">
-                  <motion.div
-                    className="w-28 h-20 rounded-xl border-2 border-yellow/40 bg-white flex items-center justify-center mx-auto shadow-md"
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                  >
-                    <Battery size={36} className="text-yellow" />
-                  </motion.div>
-                  <div className="mt-2 flex justify-center gap-2">
-                    {[...Array(3)].map((_, i) => (
-                      <div key={i} className="w-8 h-2 bg-yellow/30 rounded border border-yellow/40" />
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <motion.div
-                  className="w-32 h-24 rounded-lg border-2 border-yellow/40 bg-white flex items-center justify-center mx-auto shadow-md"
-                  whileHover={{ scale: 1.05 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                >
-                  <Zap size={32} className="text-yellow" />
-                </motion.div>
-              )}
-            </div>
+        <div className="relative h-52 bg-gradient-to-br from-gray-50 to-gray-100 overflow-hidden flex items-center justify-center p-4">
+          <div className="w-full h-full max-w-[220px]">
+            <ProductIllustration productId={toProductId(product.slug)} />
           </div>
           {/* Hover overlay */}
           <div className="absolute inset-0 bg-yellow/0 group-hover:bg-yellow/5 transition-all duration-300" />
@@ -87,12 +60,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Content */}
       <div className="flex flex-col flex-1 p-5">
-        {/* Category label */}
         <p className="text-xs font-semibold tracking-widest text-gray-400 uppercase mb-2">
           {product.category === 'power-station' ? 'Power Station' : 'Solar Panel'}
         </p>
 
-        {/* Name */}
         <Link href={`/products/${product.slug}`} className="group/name">
           <h3
             className="font-bold text-gray-900 text-lg leading-tight mb-1 group-hover/name:text-yellow transition-colors"
@@ -103,7 +74,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         </Link>
         <p className="text-xs text-yellow font-semibold mb-2">{product.tagline}</p>
 
-        {/* Key specs pills */}
+        {/* Spec pills */}
         <div className="flex flex-wrap gap-1.5 mb-4">
           {product.capacity && (
             <span className="px-2 py-0.5 bg-gray-100 border border-gray-200 rounded-full text-xs text-gray-600">
