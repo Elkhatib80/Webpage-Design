@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { value: 10000, suffix: '+', label: 'Customers', prefix: '' },
-  { value: 5, suffix: '-Year', label: 'Warranty', prefix: '' },
-  { value: 99.8, suffix: '%', label: 'Uptime', prefix: '' },
-  { value: 24, suffix: '/7', label: 'Support', prefix: '' },
+  { value: 10000, suffix: '+', label: 'Customers Powered', prefix: '' },
+  { value: 5, suffix: '-Year', label: 'Warranty Guarantee', prefix: '' },
+  { value: 99.8, suffix: '%', label: 'Uptime Rate', prefix: '' },
+  { value: 24, suffix: '/7', label: 'Customer Support', prefix: '' },
 ];
 
 function useCountUp(target: number, duration = 1800, start = false) {

@@ -231,7 +231,7 @@ export default function HeroSection() {
 
         {/* Trust badges */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10"
+          className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-10"
           variants={container}
         >
           {trustBadges.map(({ icon: Icon, label }) => (
@@ -246,19 +246,19 @@ export default function HeroSection() {
             </motion.div>
           ))}
         </motion.div>
-      </motion.div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.4, duration: 0.6 }}
-      >
-        <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center pt-1.5">
-          <div className="w-1 h-2 rounded-full bg-yellow" style={{ animation: 'scrollDot 1.8s ease-in-out infinite' }} />
-        </div>
+        {/* Scroll indicator — in-flow below trust badges, never overlaps */}
+        <motion.div
+          className="flex flex-col items-center gap-2"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.4, duration: 0.6 }}
+        >
+          <span className="text-xs text-gray-500 tracking-widest uppercase">Scroll</span>
+          <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center pt-1.5">
+            <div className="w-1 h-2 rounded-full bg-yellow" style={{ animation: 'scrollDot 1.8s ease-in-out infinite' }} />
+          </div>
+        </motion.div>
       </motion.div>
 
       <style>{`
