@@ -14,7 +14,7 @@ export default function AnnouncementBar() {
       <div className="max-w-7xl mx-auto px-4 py-2.5 flex items-center justify-center gap-3">
         <Zap size={14} className="shrink-0" />
         <span className="text-center leading-tight">
-          Free shipping on orders over ₦500k · AED 2,000 · SAR 2,000
+          Free shipping on orders over {'\u20A6'}500k &middot; AED 2,000 &middot; SAR 2,000
           {' — '}
           <Link href="/products" className="underline underline-offset-2 hover:no-underline font-black">
             Shop Now

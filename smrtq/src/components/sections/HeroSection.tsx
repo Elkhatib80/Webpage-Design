@@ -155,13 +155,14 @@ export default function HeroSection() {
         <motion.h1
           className="font-black leading-none mb-6"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+          aria-label="POWER WITHOUT LIMITS"
           variants={fadeUp}
           transition={{ duration: 0.7, ease: EASE }}
         >
-          <span className="block text-white" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
+          <span aria-hidden="true" className="block text-white" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
             POWER WITHOUT
           </span>
-          <span className="block gradient-text yellow-glow-text" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
+          <span aria-hidden="true" className="block gradient-text yellow-glow-text" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
             LIMITS
           </span>
         </motion.h1>

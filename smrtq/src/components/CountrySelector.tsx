@@ -32,7 +32,7 @@ export default function CountrySelector() {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-2 px-3 py-2 rounded-lg border border-white/10 hover:border-yellow/50 bg-white/5 hover:bg-white/10 transition-all duration-200 cursor-pointer"
-        aria-label="Select country"
+        aria-label="Select your country"
         aria-expanded={open}
       >
         <span className="text-lg leading-none">{current.flag}</span>

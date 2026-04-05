@@ -13,7 +13,7 @@ const testimonials = [
     location: 'Lagos, Nigeria',
     flag: '🇳🇬',
     rating: 5,
-    text: "Before smrtQ, I was spending ₦80,000 a month on generator fuel. Now I run my shop entirely on the Ultra 2000 with solar panels. It paid for itself in less than 4 months. Absolutely life-changing.",
+    text: "Before smrtQ, I was spending ₦80,000 a month on generator fuel. Now I run my shop entirely on the Q-24 with solar panels. It paid for itself in less than 4 months. Absolutely life-changing.",
   },
   {
     name: 'Khalid Al-Mansouri',
@@ -29,7 +29,7 @@ const testimonials = [
     location: 'Riyadh, Saudi Arabia',
     flag: '🇸🇦',
     rating: 5,
-    text: "Purchased the Pro 1000 for our mountain chalet. It handles the air conditioning unit during the afternoon peak with ease. Silent, clean, and the 5-year warranty gave us real peace of mind.",
+    text: "Purchased the Q-12 for our mountain chalet. It handles the air conditioning unit during the afternoon peak with ease. Silent, clean, and the 5-year warranty gave us real peace of mind.",
   },
   {
     name: 'Adaeze Ihejirika',
@@ -37,7 +37,7 @@ const testimonials = [
     location: 'Abuja, Nigeria',
     flag: '🇳🇬',
     rating: 5,
-    text: "I work from home and can't afford blackouts. The smrtQ Pro 1000 keeps my laptop, monitors, and internet router running all day. Customer service was outstanding too — very responsive.",
+    text: "I work from home and can't afford blackouts. The smrtQ Q-12 keeps my laptop, monitors, and internet router running all day. Customer service was outstanding too — very responsive.",
   },
   {
     name: 'Mohammed Al-Qahtani',
@@ -45,7 +45,7 @@ const testimonials = [
     location: 'Tabuk, Saudi Arabia',
     flag: '🇸🇦',
     rating: 5,
-    text: "Using two Ultra 2000 units with 400W solar panels to power our irrigation pumps and field office. Cut our diesel costs by 70%. The durability in our desert climate has been impressive.",
+    text: "Using two Q-24 units with 400W solar panels to power our irrigation pumps and field office. Cut our diesel costs by 70%. The durability in our desert climate has been impressive.",
   },
   {
     name: 'Fatima Hassan',

@@ -36,9 +36,10 @@ export default function FeaturedProducts() {
             <h2
               className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight"
               style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
+              aria-label="BUILT TO POWER YOUR WORLD"
             >
-              BUILT TO POWER<br />
-              <span className="gradient-text">YOUR WORLD</span>
+              <span aria-hidden="true">BUILT TO POWER</span><br aria-hidden="true" />
+              <span aria-hidden="true" className="gradient-text">YOUR WORLD</span>
             </h2>
           </div>
           <Link

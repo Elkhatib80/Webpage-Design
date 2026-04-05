@@ -19,7 +19,7 @@ interface ModelConfig {
 
 const MODELS: Record<ProductId, ModelConfig> = {
   'q-08': {
-    capacity: '512Wh',  wattage: '600W',  acPorts: 1, usbA: 2, usbC: 1,
+    capacity: '512Wh',  wattage: '800W',  acPorts: 1, usbA: 2, usbC: 1,
     hasSolar: false, hasHandle: false, isFlagship: false, batteryPct: 80, bodyColor: '#222',
   },
   'q-12': {
@@ -27,7 +27,7 @@ const MODELS: Record<ProductId, ModelConfig> = {
     hasSolar: true,  hasHandle: true,  isFlagship: false, batteryPct: 65, bodyColor: '#1E1E1E',
   },
   'q-24': {
-    capacity: '2048Wh', wattage: '2000W', acPorts: 2, usbA: 3, usbC: 2,
+    capacity: '2048Wh', wattage: '2400W', acPorts: 3, usbA: 3, usbC: 2,
     hasSolar: true,  hasHandle: true,  isFlagship: true,  batteryPct: 90, bodyColor: '#1A1A1A',
   },
   'q-36': {

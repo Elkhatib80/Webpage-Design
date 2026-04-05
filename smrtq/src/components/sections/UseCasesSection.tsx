@@ -74,7 +74,7 @@ export default function UseCasesSection() {
 
         {/* Cards */}
         <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto"
           variants={container}
           initial="hidden"
           whileInView="visible"

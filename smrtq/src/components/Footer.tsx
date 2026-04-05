@@ -188,15 +188,15 @@ export default function Footer() {
           <div className="mt-8">
             <h4 className="text-sm font-semibold text-white mb-4 tracking-wider uppercase">Follow Us</h4>
             <div className="flex gap-3">
-              {socialLinks.map(({ label, href, icon }) => (
-                <a
+              {socialLinks.map(({ label, icon }) => (
+                <span
                   key={label}
-                  href={href}
-                  aria-label={label}
-                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-400 hover:text-yellow hover:border-yellow/50 hover:bg-yellow/5 transition-all duration-200"
+                  title={`Follow us on ${label} — coming soon`}
+                  aria-label={`${label} — coming soon`}
+                  className="w-9 h-9 flex items-center justify-center rounded-lg bg-white/5 border border-white/10 text-gray-600 cursor-default"
                 >
                   {icon}
-                </a>
+                </span>
               ))}
             </div>
           </div>
@@ -211,9 +211,9 @@ export default function Footer() {
             <p className="text-gray-600">RC 1234567 · Registered in Nigeria</p>
           </div>
           <div className="flex gap-6">
-            <Link href="/contact" className="hover:text-yellow transition-colors">Privacy Policy</Link>
-            <Link href="/contact" className="hover:text-yellow transition-colors">Terms of Service</Link>
-            <Link href="/contact" className="hover:text-yellow transition-colors">Cookie Policy</Link>
+            <Link href="/privacy" className="hover:text-yellow transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-yellow transition-colors">Terms of Service</Link>
+            <Link href="/cookies" className="hover:text-yellow transition-colors">Cookie Policy</Link>
           </div>
         </div>
       </div>
