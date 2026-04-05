@@ -4,7 +4,6 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { CountryProvider } from '@/lib/contexts/CountryContext';
 import { CartProvider } from '@/lib/contexts/CartContext';
-import AnnouncementBar from '@/components/AnnouncementBar';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingCTA from '@/components/FloatingCTA';
@@ -75,7 +74,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <CountryProvider>
           <CartProvider>
             <ScrollProgress />
-            <AnnouncementBar />
             <Header />
             <main><PageTransitionWrapper>{children}</PageTransitionWrapper></main>
             <Footer />

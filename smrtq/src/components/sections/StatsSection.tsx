@@ -4,10 +4,10 @@ import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const stats = [
-  { value: 10000, suffix: '+', label: 'Customers Powered', prefix: '' },
-  { value: 5, suffix: '-Year', label: 'Warranty Guarantee', prefix: '' },
-  { value: 99.8, suffix: '%', label: 'Uptime Rate', prefix: '' },
-  { value: 24, suffix: '/7', label: 'Customer Support', prefix: '' },
+  { value: 10000, suffix: '+', label: 'Customers', prefix: '' },
+  { value: 5, suffix: '-Year', label: 'Warranty', prefix: '' },
+  { value: 99.8, suffix: '%', label: 'Uptime', prefix: '' },
+  { value: 24, suffix: '/7', label: 'Support', prefix: '' },
 ];
 
 function useCountUp(target: number, duration = 1800, start = false) {
@@ -82,7 +82,7 @@ export default function StatsSection() {
       <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-yellow to-transparent opacity-60" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-16">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 sm:gap-16">
           {stats.map((stat, i) => (
             <StatCard key={stat.label} {...stat} delay={i * 100} inView={inView} />
           ))}
