@@ -7,58 +7,24 @@ import './globals.css';
 
 const displayFont = localFont({
   src: [
-    {
-      path: '../fonts/cormorant-garamond-light.woff2',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/cormorant-garamond-light-italic.woff2',
-      weight: '300',
-      style: 'italic',
-    },
-    {
-      path: '../fonts/cormorant-garamond-regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/cormorant-garamond-semibold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
+    { path: '../fonts/cormorant-garamond-light.woff2', weight: '300', style: 'normal' },
+    { path: '../fonts/cormorant-garamond-light-italic.woff2', weight: '300', style: 'italic' },
+    { path: '../fonts/cormorant-garamond-regular.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/cormorant-garamond-semibold.woff2', weight: '600', style: 'normal' },
   ],
   variable: '--font-display',
   display: 'swap',
-  fallback: ['Georgia', 'serif'],
 });
 
 const bodyFont = localFont({
   src: [
-    {
-      path: '../fonts/dm-sans-light.woff2',
-      weight: '300',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/dm-sans-regular.woff2',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/dm-sans-medium.woff2',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../fonts/dm-sans-semibold.woff2',
-      weight: '600',
-      style: 'normal',
-    },
+    { path: '../fonts/dm-sans-light.woff2', weight: '300', style: 'normal' },
+    { path: '../fonts/dm-sans-regular.woff2', weight: '400', style: 'normal' },
+    { path: '../fonts/dm-sans-medium.woff2', weight: '500', style: 'normal' },
+    { path: '../fonts/dm-sans-semibold.woff2', weight: '600', style: 'normal' },
   ],
   variable: '--font-body',
   display: 'swap',
-  fallback: ['system-ui', 'sans-serif'],
 });
 
 export const metadata: Metadata = {

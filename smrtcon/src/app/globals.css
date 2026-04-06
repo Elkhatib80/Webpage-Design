@@ -1,20 +1,6 @@
-@import "tailwindcss";
-
-@theme inline {
-  --color-charcoal: #1E1B18;
-  --color-ink: #0F0E0D;
-  --color-gold: #C49A3C;
-  --color-gold-light: #E8C97A;
-  --color-gold-pale: #F5EDD8;
-  --color-cream: #F8F4EE;
-  --color-warm-white: #FEFCF9;
-  --color-rust: #8B4A2B;
-  --color-slate: #3A3830;
-  --color-stone: #7A7168;
-  --color-concrete: #C4BDB4;
-  --font-display: var(--font-display);
-  --font-body: var(--font-body);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --whatsapp-green: #25D366;
