@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-charcoal: #1E1B18;
+  --color-ink: #0F0E0D;
+  --color-gold: #C49A3C;
+  --color-gold-light: #E8C97A;
+  --color-gold-pale: #F5EDD8;
+  --color-cream: #F8F4EE;
+  --color-warm-white: #FEFCF9;
+  --color-rust: #8B4A2B;
+  --color-slate: #3A3830;
+  --color-stone: #7A7168;
+  --color-concrete: #C4BDB4;
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+}
+
+:root {
+  --whatsapp-green: #25D366;
+  --canada-accent: #C49A3C;
+  --africa-accent: #8B4A2B;
+  --mideast-accent: #4A7A6B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #1E1B18;
+  color: #F8F4EE;
+  font-family: var(--font-body), system-ui, sans-serif;
+}
+
+/* Gold shimmer button */
+.btn-gold {
+  position: relative;
+  overflow: hidden;
+  background-color: #C49A3C;
+  color: #0F0E0D;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.btn-gold::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -200%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.6s ease;
+}
+
+.btn-gold:hover::after {
+  left: 200%;
+}
+
+.btn-gold:hover {
+  background-color: #E8C97A;
+}
+
+/* Outline button */
+.btn-outline {
+  border: 1px solid #C49A3C;
+  color: #C49A3C;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background-color: rgba(196, 154, 60, 0.1);
+}
+
+/* Nav link underline animation */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #C49A3C;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Eyebrow text */
+.eyebrow {
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.75rem;
+}
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid #C49A3C;
+  outline-offset: 2px;
+}
+
+/* Skip to content */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #C49A3C;
+  color: #0F0E0D;
+  padding: 8px 16px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0F0E0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3A3830;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7A7168;
+}
