@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY || 'placeholder');
 
 function buildEmailTemplate(data: Record<string, unknown>): string {
   const categories = Array.isArray(data.categories)
