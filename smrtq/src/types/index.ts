@@ -1,5 +1,14 @@
 export type CountryCode = 'NG' | 'AE' | 'SA';
 
+export interface StatItem {
+  display: string;
+  label: string;
+}
+
+export interface UseCaseItem {
+  body: string;
+}
+
 export interface Country {
   code: CountryCode;
   name: string;
@@ -9,7 +18,18 @@ export interface Country {
   locale: string;
   phone: string;
   email: string;
+  /** @deprecated use heroSubheading */
   heroSubline: string;
+  // Localised homepage copy
+  heroHeadlineLine1: string;
+  heroHeadlineLine2: string;
+  heroSubheading: string;
+  heroBadgeText: string;
+  statsBar: [StatItem, StatItem, StatItem, StatItem];
+  useCases: [UseCaseItem, UseCaseItem, UseCaseItem, UseCaseItem];
+  featuresSubheading: string;
+  ctaHeadline: string;
+  ctaSubtext: string;
 }
 
 export interface ProductPrice {

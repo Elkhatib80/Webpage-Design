@@ -3,8 +3,13 @@
 import Link from 'next/link';
 import { ArrowRight, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useCountry } from '@/lib/contexts/CountryContext';
+import { countries } from '@/lib/countries';
 
 export default function CTABanner() {
+  const { countryCode } = useCountry();
+  const country = countries[countryCode];
+
   return (
     <section className="relative py-24 overflow-hidden">
       {/* Background */}
@@ -28,6 +33,7 @@ export default function CTABanner() {
 
       <motion.div
         className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 text-center"
+        key={countryCode}
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
@@ -37,10 +43,10 @@ export default function CTABanner() {
           className="text-5xl sm:text-6xl lg:text-7xl font-black text-black leading-none mb-6"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
         >
-          READY TO POWER UP?
+          {country.ctaHeadline}
         </h2>
         <p className="text-black/70 text-lg sm:text-xl mb-10 max-w-xl mx-auto">
-          Join 10,000+ households and businesses across Nigeria, UAE, and Saudi Arabia who chose smrtQ.
+          {country.ctaSubtext}
         </p>
         <motion.div
           className="flex flex-col sm:flex-row items-center justify-center gap-4"

@@ -3,6 +3,8 @@
 import { Shield, Zap, Wifi, Sun, Battery, ThumbsUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
+import { useCountry } from '@/lib/contexts/CountryContext';
+import { countries } from '@/lib/countries';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -56,6 +58,9 @@ const fadeUp: Variants = {
 };
 
 export default function WhySmrtQ() {
+  const { countryCode } = useCountry();
+  const country = countries[countryCode];
+
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -75,7 +80,7 @@ export default function WhySmrtQ() {
             ENGINEERED FOR EXCELLENCE
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-lg">
-            Every detail designed for the demanding conditions of Africa and the Middle East.
+            {country.featuresSubheading}
           </p>
         </motion.div>
 

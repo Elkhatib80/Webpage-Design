@@ -145,8 +145,7 @@ export default function HeroSection() {
         {/* Country badge */}
         <motion.div variants={fadeIn} transition={{ duration: 0.6 }}>
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm text-gray-300 mb-8">
-            <span className="text-base">{country.flag}</span>
-            <span>Now available in {country.name}</span>
+            <span>{country.heroBadgeText}</span>
             <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
           </div>
         </motion.div>
@@ -155,15 +154,15 @@ export default function HeroSection() {
         <motion.h1
           className="font-black leading-none mb-6"
           style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
-          aria-label="POWER WITHOUT LIMITS"
+          aria-label={`${country.heroHeadlineLine1} ${country.heroHeadlineLine2}`}
           variants={fadeUp}
           transition={{ duration: 0.7, ease: EASE }}
         >
           <span aria-hidden="true" className="block text-white" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
-            POWER WITHOUT
+            {country.heroHeadlineLine1}
           </span>
           <span aria-hidden="true" className="block gradient-text yellow-glow-text" style={{ fontSize: 'clamp(3rem, 10vw, 8rem)' }}>
-            LIMITS
+            {country.heroHeadlineLine2}
           </span>
         </motion.h1>
 
@@ -172,7 +171,7 @@ export default function HeroSection() {
           variants={fadeUp}
           transition={{ duration: 0.7, ease: EASE }}
         >
-          {country.heroSubline}
+          {country.heroSubheading}
         </motion.p>
 
         {/* Model pills */}

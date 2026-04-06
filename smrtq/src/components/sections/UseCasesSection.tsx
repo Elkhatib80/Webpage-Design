@@ -3,14 +3,16 @@
 import { Home, Briefcase, Tent, Truck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import type { Variants } from 'framer-motion';
+import { useCountry } from '@/lib/contexts/CountryContext';
+import { countries } from '@/lib/countries';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const useCases = [
+// Visual config stays universal — only body copy comes from country data
+const cardConfig = [
   {
     icon: Home,
     title: 'Home Backup',
-    description: 'Keep your lights, fans, TV, and fridge running during power cuts. Silent, emission-free, and safe indoors.',
     gradient: 'from-yellow/15 to-yellow/5',
     border: 'border-yellow/25',
     iconBg: 'bg-yellow/10 text-yellow',
@@ -18,7 +20,6 @@ const useCases = [
   {
     icon: Briefcase,
     title: 'Business Continuity',
-    description: 'Protect your POS systems, computers, and critical equipment from costly downtime during outages.',
     gradient: 'from-blue-100 to-blue-50',
     border: 'border-blue-200',
     iconBg: 'bg-blue-100 text-blue-600',
@@ -26,7 +27,6 @@ const useCases = [
   {
     icon: Tent,
     title: 'Outdoor & Camping',
-    description: 'Power your campsite, desert camp, or beach retreat with clean, portable energy. No noise, no fumes.',
     gradient: 'from-green-100 to-green-50',
     border: 'border-green-200',
     iconBg: 'bg-green-100 text-green-600',
@@ -34,12 +34,11 @@ const useCases = [
   {
     icon: Truck,
     title: 'Work & Field Sites',
-    description: 'Run power tools, laptops, and communication equipment on remote job sites, oil fields, and farms.',
     gradient: 'from-orange-100 to-orange-50',
     border: 'border-orange-200',
     iconBg: 'bg-orange-100 text-orange-600',
   },
-];
+] as const;
 
 const container: Variants = {
   hidden: {},
@@ -52,6 +51,9 @@ const fadeUp: Variants = {
 };
 
 export default function UseCasesSection() {
+  const { countryCode } = useCountry();
+  const country = countries[countryCode];
+
   return (
     <section className="py-24 bg-[#F7F6F2] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -75,31 +77,33 @@ export default function UseCasesSection() {
         {/* Cards */}
         <motion.div
           className="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-3xl mx-auto"
+          key={countryCode}
           variants={container}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-60px' }}
         >
-          {useCases.map((uc) => {
-            const Icon = uc.icon;
+          {cardConfig.map((cfg, i) => {
+            const Icon = cfg.icon;
+            const body = country.useCases[i].body;
             return (
               <motion.div
-                key={uc.title}
-                className={`relative p-7 rounded-2xl border ${uc.border} bg-gradient-to-br ${uc.gradient} overflow-hidden group cursor-default hover:shadow-md transition-shadow duration-300`}
+                key={cfg.title}
+                className={`relative p-7 rounded-2xl border ${cfg.border} bg-gradient-to-br ${cfg.gradient} overflow-hidden group cursor-default hover:shadow-md transition-shadow duration-300`}
                 variants={fadeUp}
                 transition={{ duration: 0.6, ease: EASE }}
                 whileHover={{ y: -5 }}
               >
-                <div className={`w-12 h-12 rounded-xl ${uc.iconBg} flex items-center justify-center mb-5`}>
+                <div className={`w-12 h-12 rounded-xl ${cfg.iconBg} flex items-center justify-center mb-5`}>
                   <Icon size={22} />
                 </div>
                 <h3
                   className="text-xl font-bold text-gray-900 mb-3"
                   style={{ fontFamily: "'Barlow Condensed', sans-serif" }}
                 >
-                  {uc.title}
+                  {cfg.title}
                 </h3>
-                <p className="text-sm text-gray-600 leading-relaxed">{uc.description}</p>
+                <p className="text-sm text-gray-600 leading-relaxed">{body}</p>
               </motion.div>
             );
           })}
